@@ -13,5 +13,6 @@ To work with application, you need to:
 4. Log out and log in again, but select a profile this time.
 5. In the `Application -> Funding Applications` screen, press `Profile` button. You should see a notification with roles list for the selected profile.
 
-To make the application work properly, we need to update `com.haulmont.cuba.security.app.role.RolesHelper` 
+To apply profile roles, we need to update `com.haulmont.cuba.security.app.role.RolesHelper` 
 and `com.haulmont.cuba.security.sys.UserSessionManager` classes that define set of roles for the current user session. 
+But this can be done later.  
