@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://profileEdit.caption"
+        focusComponent="form"
+        messagesPack="com.company.profiles.web.screens.profile">
+    <data>
+        <instance id="profileDc"
+                  class="com.company.profiles.entity.Profile">
+            <view extends="_local">
+                <property name="roles" view="_minimal"/>
+                <property name="user" view="_minimal"/>
+            </view>
+            <loader/>
+            <collection id="rolesDc" property="roles"/>
+        </instance>
+        <collection id="usersDc" class="com.haulmont.cuba.security.entity.User" view="_minimal">
+            <loader>
+                <query>select e from sec$User e</query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="profileDc">
+            <column width="350px">
+                <textField id="nameField" property="name"/>
+                <lookupField id="userField" property="user" optionsContainer="usersDc"/>
+            </column>
+        </form>
+        <groupBox id="rolesBox" caption="msg://com.company.profiles.entity/Profile.roles">
+            <table id="rolesTable" dataContainer="rolesDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="locName"/>
+                    <column id="name"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="rolesTable.add"/>
+                    <button action="rolesTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://fundingApplicationEdit.caption"
+        focusComponent="form"
+        messagesPack="com.company.profiles.web.screens.fundingapplication">
+    <data>
+        <instance id="fundingApplicationDc"
+                  class="com.company.profiles.entity.FundingApplication">
+            <view extends="_local">
+                <property name="user" view="_minimal"/>
+            </view>
+            <loader/>
+        </instance>
+        <collection id="usersDc" class="com.haulmont.cuba.security.entity.User" view="_minimal">
+            <loader id="usersDl">
+                <query>
+                    <![CDATA[select e from sec$User e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="fundingApplicationDc">
+            <column width="350px">
+                <lookupPickerField id="userField" optionsContainer="usersDc" property="user"/>
+                <dateField id="applicationDateField" property="applicationDate"/>
+                <checkBox id="approvedField" property="approved"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://fundingApplicationBrowse.caption"
+        focusComponent="fundingApplicationsTable"
+        messagesPack="com.company.profiles.web.screens.fundingapplication">
+    <data readOnly="true">
+        <collection id="fundingApplicationsDc"
+                    class="com.company.profiles.entity.FundingApplication">
+            <view extends="_local">
+                <property name="user" view="_minimal"/>
+            </view>
+            <loader id="fundingApplicationsDl">
+                <query>
+                    <![CDATA[select e from profiles_FundingApplication e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="fundingApplicationsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="fundingApplicationsTable"
+                dataLoader="fundingApplicationsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="fundingApplicationsTable"
+                    width="100%"
+                    dataContainer="fundingApplicationsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="user"/>
+                <column id="applicationDate"/>
+                <column id="approved"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="fundingApplicationsTable.create"/>
+                <button id="editBtn" action="fundingApplicationsTable.edit"/>
+                <button id="removeBtn" action="fundingApplicationsTable.remove"/>
+                <button id="profileBtn" caption="Profile"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
